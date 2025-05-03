@@ -1,0 +1,17 @@
+#include <16f877a.h>
+#fuses xt,nowdt
+#USE DELAY (CLOCK = 4M)
+
+void main()
+
+{
+while(TRUE){
+
+    output_low(pin_B7);
+delay_ms(1000);
+
+output_high(pin_B7);
+delay_ms(1000);
+
+}
+}

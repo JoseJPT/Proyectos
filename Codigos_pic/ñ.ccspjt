@@ -1,0 +1,20 @@
+[PROJECT]
+Target=ñ.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=ñ.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[ñ.c]
+Type=4
+[mru-list]
+1=ñ.c
+[Opened Files]
+1=sensor.c
+2=ñ.c
+3=
+[Units]
+Count=1
+1=ñ (main)

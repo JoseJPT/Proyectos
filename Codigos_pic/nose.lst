@@ -1,0 +1,545 @@
+CCS PCM C Compiler, Version 5.015, 5967               05-feb.-25 01:04
+
+               Filename:   C:\Users\Joss\Desktop\Meca\Programacion\Codigos pic\nose.lst
+
+               ROM used:   359 words (4%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           9 (2%) worst case
+               Stack used: 3 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  01
+0001:  MOVWF  0A
+0002:  GOTO   151
+0003:  NOP
+.................... #include <16F877A.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #fuses XT, NOWDT 
+.................... #USE DELAY(CLOCK=4M) 
+*
+0029:  MOVLW  21
+002A:  MOVWF  04
+002B:  BCF    03.7
+002C:  MOVF   00,W
+002D:  BTFSC  03.2
+002E:  GOTO   03D
+002F:  MOVLW  01
+0030:  MOVWF  78
+0031:  CLRF   77
+0032:  DECFSZ 77,F
+0033:  GOTO   032
+0034:  DECFSZ 78,F
+0035:  GOTO   031
+0036:  MOVLW  4A
+0037:  MOVWF  77
+0038:  DECFSZ 77,F
+0039:  GOTO   038
+003A:  GOTO   03B
+003B:  DECFSZ 00,F
+003C:  GOTO   02F
+003D:  RETURN
+.................... // Definición de pines 
+.................... #define PIN_1 PIN_B0   // Sensor izquierdo frontal 
+.................... #define PIN_2 PIN_B1   // Sensor izquierdo trasero 
+.................... #define PIN_3 PIN_B2   // Sensor derecho trasero 
+.................... #define PIN_4 PIN_B3   // Sensor derecho frontal 
+.................... #define DELANTE PIN_D3 
+.................... #define ATRAS PIN_D2 
+.................... #define DERECHA PIN_D1 
+.................... #define IZQUIERDA PIN_D0 
+.................... // Variable global para controlar el algoritmo activo 
+.................... int algoritmo_activo = 0;  // 0 = Mano Derecha, 1 = Mano Izquierda 
+.................... // Función para detener todos los motores 
+.................... void detener_motores() { 
+....................     output_low(DELANTE); 
+003E:  BSF    03.5
+003F:  BCF    08.3
+0040:  BCF    03.5
+0041:  BCF    08.3
+....................     output_low(ATRAS); 
+0042:  BSF    03.5
+0043:  BCF    08.2
+0044:  BCF    03.5
+0045:  BCF    08.2
+....................     output_low(DERECHA); 
+0046:  BSF    03.5
+0047:  BCF    08.1
+0048:  BCF    03.5
+0049:  BCF    08.1
+....................     output_low(IZQUIERDA); 
+004A:  BSF    03.5
+004B:  BCF    08.0
+004C:  BCF    03.5
+004D:  BCF    08.0
+....................     delay_ms(100); 
+004E:  MOVLW  64
+004F:  MOVWF  21
+0050:  CALL   029
+0051:  RETURN
+.................... } 
+.................... // Función para cambiar algoritmo basado en condiciones específicas 
+.................... void verificar_cambio_algoritmo() { 
+....................     // Condición para cambiar a algoritmo de mano derecha 
+....................     if ((input(PIN_1) == 1 && input(PIN_4) == 1 && input(PIN_3) == 0)) { 
+*
+0004:  BSF    03.5
+0005:  BSF    06.0
+0006:  BCF    03.5
+0007:  BTFSS  06.0
+0008:  GOTO   015
+0009:  BSF    03.5
+000A:  BSF    06.3
+000B:  BCF    03.5
+000C:  BTFSS  06.3
+000D:  GOTO   015
+000E:  BSF    03.5
+000F:  BSF    06.2
+0010:  BCF    03.5
+0011:  BTFSC  06.2
+0012:  GOTO   015
+....................         // Cambiar de algoritmo 
+....................         algoritmo_activo = 0; 
+0013:  CLRF   20
+....................          
+....................         } 
+0014:  GOTO   026
+....................     // Condición para cambiar a algoritmo de mano izquierda 
+....................     else if ((input(PIN_1) == 1 && input(PIN_4) == 0 && input(PIN_3) == 1)) { 
+0015:  BSF    03.5
+0016:  BSF    06.0
+0017:  BCF    03.5
+0018:  BTFSS  06.0
+0019:  GOTO   026
+001A:  BSF    03.5
+001B:  BSF    06.3
+001C:  BCF    03.5
+001D:  BTFSC  06.3
+001E:  GOTO   026
+001F:  BSF    03.5
+0020:  BSF    06.2
+0021:  BCF    03.5
+0022:  BTFSS  06.2
+0023:  GOTO   026
+....................         // Cambiar de algoritmo 
+....................         algoritmo_activo = 1; 
+0024:  MOVLW  01
+0025:  MOVWF  20
+....................          
+....................             } 
+0026:  BCF    0A.3
+0027:  BCF    0A.4
+0028:  GOTO   15F (RETURN)
+.................... } 
+.................... // Función para algoritmo de mano derecha 
+.................... void algoritmo_mano_derecha() { 
+....................     // Avanzar hacia delante 
+....................     if (input(PIN_1) == 1) {  
+*
+0052:  BSF    03.5
+0053:  BSF    06.0
+0054:  BCF    03.5
+0055:  BTFSS  06.0
+0056:  GOTO   063
+....................          output_high(IZQUIERDA); 
+0057:  BSF    03.5
+0058:  BCF    08.0
+0059:  BCF    03.5
+005A:  BSF    08.0
+....................                output_high(ATRAS); 
+005B:  BSF    03.5
+005C:  BCF    08.2
+005D:  BCF    03.5
+005E:  BSF    08.2
+....................             Delay_ms(140);      
+005F:  MOVLW  8C
+0060:  MOVWF  21
+0061:  CALL   029
+....................         detener_motores(); 
+0062:  CALL   03E
+....................     } 
+....................       // Girar a la izquierda 
+....................     if (input(PIN_1) == 0) { 
+0063:  BSF    03.5
+0064:  BSF    06.0
+0065:  BCF    03.5
+0066:  BTFSC  06.0
+0067:  GOTO   083
+....................         output_high(DERECHA); 
+0068:  BSF    03.5
+0069:  BCF    08.1
+006A:  BCF    03.5
+006B:  BSF    08.1
+....................         output_high(ATRAS); 
+006C:  BSF    03.5
+006D:  BCF    08.2
+006E:  BCF    03.5
+006F:  BSF    08.2
+....................         delay_ms(230); 
+0070:  MOVLW  E6
+0071:  MOVWF  21
+0072:  CALL   029
+....................          
+....................         output_low(DERECHA); 
+0073:  BSF    03.5
+0074:  BCF    08.1
+0075:  BCF    03.5
+0076:  BCF    08.1
+....................         output_high(IZQUIERDA); 
+0077:  BSF    03.5
+0078:  BCF    08.0
+0079:  BCF    03.5
+007A:  BSF    08.0
+....................         output_high(ATRAS); 
+007B:  BSF    03.5
+007C:  BCF    08.2
+007D:  BCF    03.5
+007E:  BSF    08.2
+....................         delay_ms(140);   
+007F:  MOVLW  8C
+0080:  MOVWF  21
+0081:  CALL   029
+....................          
+....................         detener_motores(); 
+0082:  CALL   03E
+....................     } 
+....................     // Girar a la izquierda 
+....................     if (input(PIN_1) == 0 && input(PIN_3) == 0) { 
+0083:  BSF    03.5
+0084:  BSF    06.0
+0085:  BCF    03.5
+0086:  BTFSC  06.0
+0087:  GOTO   0A8
+0088:  BSF    03.5
+0089:  BSF    06.2
+008A:  BCF    03.5
+008B:  BTFSC  06.2
+008C:  GOTO   0A8
+....................         output_high(DERECHA); 
+008D:  BSF    03.5
+008E:  BCF    08.1
+008F:  BCF    03.5
+0090:  BSF    08.1
+....................         output_high(ATRAS); 
+0091:  BSF    03.5
+0092:  BCF    08.2
+0093:  BCF    03.5
+0094:  BSF    08.2
+....................         delay_ms(230); 
+0095:  MOVLW  E6
+0096:  MOVWF  21
+0097:  CALL   029
+....................          
+....................         output_low(DERECHA); 
+0098:  BSF    03.5
+0099:  BCF    08.1
+009A:  BCF    03.5
+009B:  BCF    08.1
+....................         output_high(IZQUIERDA); 
+009C:  BSF    03.5
+009D:  BCF    08.0
+009E:  BCF    03.5
+009F:  BSF    08.0
+....................         output_high(ATRAS); 
+00A0:  BSF    03.5
+00A1:  BCF    08.2
+00A2:  BCF    03.5
+00A3:  BSF    08.2
+....................         delay_ms(140);   
+00A4:  MOVLW  8C
+00A5:  MOVWF  21
+00A6:  CALL   029
+....................          
+....................         detener_motores(); 
+00A7:  CALL   03E
+....................     } 
+....................      
+....................     // Sin obstáculo a la derecha, girar a la derecha 
+....................     if (input(PIN_3) == 1) { 
+00A8:  BSF    03.5
+00A9:  BSF    06.2
+00AA:  BCF    03.5
+00AB:  BTFSS  06.2
+00AC:  GOTO   0C8
+....................         output_high(IZQUIERDA); 
+00AD:  BSF    03.5
+00AE:  BCF    08.0
+00AF:  BCF    03.5
+00B0:  BSF    08.0
+....................         output_high(DELANTE); 
+00B1:  BSF    03.5
+00B2:  BCF    08.3
+00B3:  BCF    03.5
+00B4:  BSF    08.3
+....................         delay_ms(180); 
+00B5:  MOVLW  B4
+00B6:  MOVWF  21
+00B7:  CALL   029
+....................          
+....................         output_low(DELANTE); 
+00B8:  BSF    03.5
+00B9:  BCF    08.3
+00BA:  BCF    03.5
+00BB:  BCF    08.3
+....................         output_high(IZQUIERDA); 
+00BC:  BSF    03.5
+00BD:  BCF    08.0
+00BE:  BCF    03.5
+00BF:  BSF    08.0
+....................         output_high(ATRAS); 
+00C0:  BSF    03.5
+00C1:  BCF    08.2
+00C2:  BCF    03.5
+00C3:  BSF    08.2
+....................         delay_ms(140); 
+00C4:  MOVLW  8C
+00C5:  MOVWF  21
+00C6:  CALL   029
+....................          
+....................         detener_motores(); 
+00C7:  CALL   03E
+....................     } 
+00C8:  BCF    0A.3
+00C9:  BCF    0A.4
+00CA:  GOTO   163 (RETURN)
+.................... } 
+.................... // Función para algoritmo de mano izquierda 
+.................... void algoritmo_mano_izquierda() { 
+....................     // Avanzar hacia delante 
+....................     if (input(PIN_4) == 0) {  
+00CB:  BSF    03.5
+00CC:  BSF    06.3
+00CD:  BCF    03.5
+00CE:  BTFSC  06.3
+00CF:  GOTO   0E4
+....................         output_high(IZQUIERDA); 
+00D0:  BSF    03.5
+00D1:  BCF    08.0
+00D2:  BCF    03.5
+00D3:  BSF    08.0
+....................         output_high(ATRAS); 
+00D4:  BSF    03.5
+00D5:  BCF    08.2
+00D6:  BCF    03.5
+00D7:  BSF    08.2
+....................         output_low(DERECHA); 
+00D8:  BSF    03.5
+00D9:  BCF    08.1
+00DA:  BCF    03.5
+00DB:  BCF    08.1
+....................         output_low(DELANTE); 
+00DC:  BSF    03.5
+00DD:  BCF    08.3
+00DE:  BCF    03.5
+00DF:  BCF    08.3
+....................         delay_ms(140); 
+00E0:  MOVLW  8C
+00E1:  MOVWF  21
+00E2:  CALL   029
+....................         
+....................         detener_motores(); 
+00E3:  CALL   03E
+....................     } 
+....................        // Girar a la derecha 
+....................     if (input(PIN_1) == 0) { 
+00E4:  BSF    03.5
+00E5:  BSF    06.0
+00E6:  BCF    03.5
+00E7:  BTFSC  06.0
+00E8:  GOTO   104
+....................         output_high(IZQUIERDA); 
+00E9:  BSF    03.5
+00EA:  BCF    08.0
+00EB:  BCF    03.5
+00EC:  BSF    08.0
+....................         output_high(DELANTE); 
+00ED:  BSF    03.5
+00EE:  BCF    08.3
+00EF:  BCF    03.5
+00F0:  BSF    08.3
+....................         delay_ms(150); 
+00F1:  MOVLW  96
+00F2:  MOVWF  21
+00F3:  CALL   029
+....................          
+....................         output_low(DELANTE); 
+00F4:  BSF    03.5
+00F5:  BCF    08.3
+00F6:  BCF    03.5
+00F7:  BCF    08.3
+....................         output_high(IZQUIERDA); 
+00F8:  BSF    03.5
+00F9:  BCF    08.0
+00FA:  BCF    03.5
+00FB:  BSF    08.0
+....................         output_high(ATRAS); 
+00FC:  BSF    03.5
+00FD:  BCF    08.2
+00FE:  BCF    03.5
+00FF:  BSF    08.2
+....................         delay_ms(140);     
+0100:  MOVLW  8C
+0101:  MOVWF  21
+0102:  CALL   029
+....................          
+....................         detener_motores(); 
+0103:  CALL   03E
+....................     } 
+....................     // Girar a la derecha 
+....................     if (input(PIN_1) == 0 && input(PIN_4) == 0) { 
+0104:  BSF    03.5
+0105:  BSF    06.0
+0106:  BCF    03.5
+0107:  BTFSC  06.0
+0108:  GOTO   129
+0109:  BSF    03.5
+010A:  BSF    06.3
+010B:  BCF    03.5
+010C:  BTFSC  06.3
+010D:  GOTO   129
+....................         output_high(IZQUIERDA); 
+010E:  BSF    03.5
+010F:  BCF    08.0
+0110:  BCF    03.5
+0111:  BSF    08.0
+....................         output_high(DELANTE); 
+0112:  BSF    03.5
+0113:  BCF    08.3
+0114:  BCF    03.5
+0115:  BSF    08.3
+....................         delay_ms(150); 
+0116:  MOVLW  96
+0117:  MOVWF  21
+0118:  CALL   029
+....................          
+....................         output_low(DELANTE); 
+0119:  BSF    03.5
+011A:  BCF    08.3
+011B:  BCF    03.5
+011C:  BCF    08.3
+....................         output_high(IZQUIERDA); 
+011D:  BSF    03.5
+011E:  BCF    08.0
+011F:  BCF    03.5
+0120:  BSF    08.0
+....................         output_high(ATRAS); 
+0121:  BSF    03.5
+0122:  BCF    08.2
+0123:  BCF    03.5
+0124:  BSF    08.2
+....................         delay_ms(140);     
+0125:  MOVLW  8C
+0126:  MOVWF  21
+0127:  CALL   029
+....................          
+....................         detener_motores(); 
+0128:  CALL   03E
+....................     } 
+....................      
+....................     // Sin obstáculo a la izquierda, girar a la izquierda 
+....................     if (input(PIN_3) == 1 && input(PIN_4) == 1 ) { 
+0129:  BSF    03.5
+012A:  BSF    06.2
+012B:  BCF    03.5
+012C:  BTFSS  06.2
+012D:  GOTO   14E
+012E:  BSF    03.5
+012F:  BSF    06.3
+0130:  BCF    03.5
+0131:  BTFSS  06.3
+0132:  GOTO   14E
+....................         output_high(DERECHA); 
+0133:  BSF    03.5
+0134:  BCF    08.1
+0135:  BCF    03.5
+0136:  BSF    08.1
+....................         output_high(ATRAS); 
+0137:  BSF    03.5
+0138:  BCF    08.2
+0139:  BCF    03.5
+013A:  BSF    08.2
+....................         delay_ms(180); 
+013B:  MOVLW  B4
+013C:  MOVWF  21
+013D:  CALL   029
+....................          
+....................         output_low(DERECHA); 
+013E:  BSF    03.5
+013F:  BCF    08.1
+0140:  BCF    03.5
+0141:  BCF    08.1
+....................         output_high(IZQUIERDA); 
+0142:  BSF    03.5
+0143:  BCF    08.0
+0144:  BCF    03.5
+0145:  BSF    08.0
+....................         output_high(ATRAS); 
+0146:  BSF    03.5
+0147:  BCF    08.2
+0148:  BCF    03.5
+0149:  BSF    08.2
+....................         delay_ms(140);  
+014A:  MOVLW  8C
+014B:  MOVWF  21
+014C:  CALL   029
+....................          
+....................         detener_motores(); 
+014D:  CALL   03E
+....................     } 
+014E:  BCF    0A.3
+014F:  BCF    0A.4
+0150:  GOTO   165 (RETURN)
+.................... } 
+.................... // Función principal 
+.................... void main() { 
+0151:  MOVF   03,W
+0152:  ANDLW  1F
+0153:  MOVWF  03
+0154:  CLRF   20
+0155:  BSF    03.5
+0156:  BSF    1F.0
+0157:  BSF    1F.1
+0158:  BSF    1F.2
+0159:  BCF    1F.3
+015A:  MOVLW  07
+015B:  MOVWF  1C
+015C:  BCF    03.7
+....................     while (TRUE) { 
+....................         // Verificar si es necesario cambiar de algoritmo 
+....................         verificar_cambio_algoritmo(); 
+015D:  BCF    03.5
+015E:  GOTO   004
+....................          
+....................         // Ejecutar solo el algoritmo activo 
+....................         if (algoritmo_activo == 0) { 
+015F:  MOVF   20,F
+0160:  BTFSS  03.2
+0161:  GOTO   164
+....................             algoritmo_mano_derecha(); 
+0162:  GOTO   052
+....................         } else { 
+0163:  GOTO   165
+....................             algoritmo_mano_izquierda(); 
+0164:  GOTO   0CB
+....................         } 
+0165:  GOTO   15E
+....................     } 
+.................... } 
+0166:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

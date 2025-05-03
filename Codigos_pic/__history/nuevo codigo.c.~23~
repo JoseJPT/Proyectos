@@ -1,0 +1,28 @@
+#include <16F877A.h>
+#fuses XT, NOWDT
+#USE DELAY(CLOCK=4M) 
+#use rs232(baud=9600, xmit=PIN_C6, rcv=PIN_C7)
+
+void main(){
+char data;
+   while(TRUE){
+   
+      if(kbhit()) {
+      
+            data = getc();
+   
+            if(data == 'a') {
+               output_high(PIN_B0);
+            }
+           
+            else if(data == 'b') {
+               output_low(PIN_B0);
+                                 }        
+                     }
+               }
+           }
+
+    
+    
+    
+

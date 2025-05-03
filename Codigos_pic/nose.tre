@@ -1,0 +1,36 @@
+ÀÄnose
+   ÀÄMAIN  0/22  Ram=0
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄverificar_cambio_algoritmo  0/37  Ram=3
+      ÃÄalgoritmo_mano_derecha  0/121  Ram=2
+      ³  ÃÄ@delay_ms1  0/21  Ram=1
+      ³  ÃÄdetener_motores  0/20  Ram=0
+      ³  ³  ÀÄ@delay_ms1  0/21  Ram=1
+      ³  ÃÄ@delay_ms1  0/21  Ram=1
+      ³  ÃÄ@delay_ms1  0/21  Ram=1
+      ³  ÃÄdetener_motores  0/20  Ram=0
+      ³  ³  ÀÄ*
+      ³  ÃÄ@delay_ms1  0/21  Ram=1
+      ³  ÃÄ@delay_ms1  0/21  Ram=1
+      ³  ÃÄdetener_motores  0/20  Ram=0
+      ³  ³  ÀÄ*
+      ³  ÃÄ@delay_ms1  0/21  Ram=1
+      ³  ÃÄ@delay_ms1  0/21  Ram=1
+      ³  ÀÄdetener_motores  0/20  Ram=0
+      ³     ÀÄ*
+      ÀÄalgoritmo_mano_izquierda  0/134  Ram=2
+         ÃÄ@delay_ms1  0/21  Ram=1
+         ÃÄdetener_motores  0/20  Ram=0
+         ³  ÀÄ*
+         ÃÄ@delay_ms1  0/21  Ram=1
+         ÃÄ@delay_ms1  0/21  Ram=1
+         ÃÄdetener_motores  0/20  Ram=0
+         ³  ÀÄ*
+         ÃÄ@delay_ms1  0/21  Ram=1
+         ÃÄ@delay_ms1  0/21  Ram=1
+         ÃÄdetener_motores  0/20  Ram=0
+         ³  ÀÄ*
+         ÃÄ@delay_ms1  0/21  Ram=1
+         ÃÄ@delay_ms1  0/21  Ram=1
+         ÀÄdetener_motores  0/20  Ram=0
+            ÀÄ*

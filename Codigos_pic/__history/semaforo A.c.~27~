@@ -1,0 +1,75 @@
+#include <16F877A.h>
+#fuses NOWDT, XT
+#use delay(clock=4M)
+
+void main() {
+    while (TRUE) {
+        // Secuencia 1
+       
+        output_high(PIN_A0);
+        output_high(PIN_A1);
+        output_high(PIN_D5);
+        delay_ms(2000); 
+
+        output_low(PIN_A0);
+        output_low(PIN_A1);
+        output_low(PIN_D5);
+        delay_ms(500); 
+        
+        output_high(PIN_A0);
+        output_high(PIN_A1);
+        output_high(PIN_E2);
+        delay_ms(2000); 
+
+        output_low(PIN_A0);
+        output_low(PIN_A1);
+        output_low(PIN_E2);
+        delay_ms(500);
+        
+        //Secuencia 2
+        
+        output_high(PIN_A2);
+        output_high(PIN_A1);
+        output_high(PIN_D0);
+        delay_ms(2000); 
+
+        output_low(PIN_A2);
+        output_low(PIN_A1);
+        output_low(PIN_D0);
+        delay_ms(500); 
+        
+        output_high(PIN_A2);
+        output_high(PIN_A1);
+        output_high(PIN_E0);
+        delay_ms(2000); 
+
+        output_low(PIN_A2);
+        output_low(PIN_A1);
+        output_low(PIN_E0);
+        delay_ms(500);
+         
+        //Secuencia 3
+        
+        output_high(PIN_A0);
+        output_high(PIN_A2);
+        output_high(PIN_D4);
+        delay_ms(2000); 
+
+        output_low(PIN_A0);
+        output_low(PIN_A2);
+        output_low(PIN_D4);
+        delay_ms(500); 
+        
+        output_high(PIN_A0);
+        output_high(PIN_A2);
+        output_high(PIN_E1);
+        delay_ms(2000); 
+
+        output_low(PIN_A0);
+        output_low(PIN_A2);
+        output_low(PIN_E1);
+        delay_ms(500);
+
+        }
+}
+

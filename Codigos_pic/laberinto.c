@@ -1,0 +1,44 @@
+#include <16f877a.h>
+#fuses xt, nowdt, NOPROTECT, NOLVP
+#USE DELAY (CLOCK = 4M)
+
+#define A1 PIN_A1 
+#define A2 PIN_A2 
+#define A3 PIN_A3 
+#define A4 PIN_A4 
+#define A5 PIN_A5
+#define D1 PIN_D1
+
+#define B1 PIN_B1 
+#define B2 PIN_B2 
+#define B3 PIN_B3 
+#define B4 PIN_B4
+#define B5 PIN_B5 
+#define B6 PIN_B6 
+
+void main() {
+    while (TRUE) { 
+        if (input(A1) == 1) {
+            output_high(B1); 
+        }
+        if (input(A2) == 1) {
+            output_high(B2); 
+        }
+        if (input(A3) == 1) {
+            output_high(B3); 
+        }
+        if (input(A4) == 1) {
+            output_high(B4); 
+        }
+        
+                if (input(A5) == 1) {
+            output_high(B5); 
+        }
+                if (input(D1) == 1) {
+            output_high(B6); 
+        }
+ 
+}
+}
+
+

@@ -1,0 +1,49 @@
+#include <16F877A.h>
+#fuses XT, NOWDT
+#use delay(clock=4M)
+#use I2C(MASTER, SDA=PIN_D1, SCL=PIN_D0, FAST=400000)  // Configura la comunicación I2C
+
+#define LED PIN_B7  // Define el pin B7 como LED
+#define VL53L0X_ADDRESS 0x29  // Dirección I2C del sensor VL53L0X
+
+// Función para inicializar el sensor VL53L0X
+void init_vl53l0x() {
+    // Aquí debes implementar la inicialización del sensor, enviando los comandos necesarios a través de I2C.
+    // Por ejemplo, configurar la calibración, el rango de medida, etc.
+}
+
+// Función para leer la distancia desde el sensor VL53L0X
+int16 read_distance() {
+    int16 distance = 0;
+
+    // Implementa la lectura del registro de distancia del VL53L0X a través de I2C
+    // Por ejemplo, enviar la dirección del registro de distancia y leer el valor
+    // i2c_start();
+    // i2c_write(VL53L0X_ADDRESS);
+    // i2c_write(<registro de distancia>);
+    // i2c_start();
+    // i2c_write(VL53L0X_ADDRESS | 0x01);
+    // distance = (i2c_read() << 8) | i2c_read(0);
+    // i2c_stop();
+
+    return distance;
+}
+
+void main() {
+    int16 distance_threshold = 100;  // Umbral de distancia en mm
+
+    init_vl53l0x();  // Inicializa el sensor
+
+    while(TRUE) {
+        int16 distance = read_distance();  // Lee la distancia del sensor
+
+        if (distance < distance_threshold) {
+            output_high(LED);  // Enciende el LED si la distancia es menor al umbral
+        } else {
+            output_low(LED);   // Apaga el LED si la distancia es mayor o igual al umbral
+        }
+
+        delay_ms(100);  // Agrega un retardo para evitar lecturas continuas muy rápidas
+    }
+}
+

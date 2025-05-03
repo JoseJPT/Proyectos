@@ -1,0 +1,61 @@
+#include <16F877A.h>
+#fuses NOWDT, XT
+#use delay(clock=4M)
+
+void main() {
+    while (TRUE) {
+        // Secuencia 1
+        output_high(PIN_A0); // Rojo
+        output_low(PIN_A1);  // Verde
+        output_low(PIN_A4);  // Amarillo
+        delay_ms(800); 
+
+        // Secuencia 2
+        output_low(PIN_A0);  // Rojo
+        output_high(PIN_A1); // Verde
+        output_low(PIN_A4);  // Amarillo
+        delay_ms(800); 
+
+        // Secuencia 3
+        output_low(PIN_A0);  // Rojo
+        output_low(PIN_A1);  // Verde
+        output_high(PIN_A4); // Amarillo
+        delay_ms(800); 
+
+        // Secuencia 4
+        output_low(PIN_A0);  // Rojo
+        output_low(PIN_A1);  // Verde
+        output_low(PIN_A4);  // Amarillo
+        delay_ms(800);
+    }
+}#include <16F877A.h>
+#fuses NOWDT, XT
+#use delay(clock=4M)
+
+void main() {
+    while (TRUE) {
+        // Secuencia 1
+        output_high(PIN_A0); // Rojo
+        output_low(PIN_A1);  // Verde
+        output_low(PIN_A4);  // Amarillo
+        delay_ms(800); 
+
+        // Secuencia 2
+        output_low(PIN_A0);  // Rojo
+        output_high(PIN_A1); // Verde
+        output_low(PIN_A4);  // Amarillo
+        delay_ms(800); 
+
+        // Secuencia 3
+        output_low(PIN_A0);  // Rojo
+        output_low(PIN_A1);  // Verde
+        output_high(PIN_A4); // Amarillo
+        delay_ms(800); 
+
+        // Secuencia 4
+        output_low(PIN_A0);  // Rojo
+        output_low(PIN_A1);  // Verde
+        output_low(PIN_A4);  // Amarillo
+        delay_ms(800);
+    }
+}

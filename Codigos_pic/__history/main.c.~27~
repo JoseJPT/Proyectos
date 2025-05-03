@@ -1,0 +1,16 @@
+#include <16f877a.h>       // Librería para el PIC16F877A
+#fuses xt,nowdt           // Oscilador externo, sin watchdog timer
+#use delay(clock=8M)      // Frecuencia del reloj (4 MHz)
+
+#define LED PIN_A4// Define el pin B0 como salida para el LED
+
+void main() {
+    while(TRUE) {
+        output_high(LED);  // Enciende el LED
+        delay_ms(500);     // Espera 500 ms
+        output_low(LED);   // Apaga el LED
+        delay_ms(500);     // Espera 500 ms
+    }
+}
+
+

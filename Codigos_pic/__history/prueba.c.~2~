@@ -1,0 +1,24 @@
+haz un codigo parecido a este que prenda leds de b1 a b4 y que sea de 20 el cristal
+#include <16F877A.h>
+#fuses NOWDT, XT
+#use delay(clock=20M)
+
+void main() {
+    while (TRUE) {
+        // Secuencia 1
+       
+        output_high(PIN_B1);
+        output_high(PIN_B2);
+        output_high(PIN_B3);
+        output_high(PIN_B3);
+        delay_ms(2000); 
+        
+        output_low(PIN_B1);
+        output_low(PIN_B2);
+        output_low(PIN_B3);
+        output_low(PIN_B3);
+        delay_ms(2000); 
+        
+
+        }
+}

@@ -1,0 +1,24 @@
+[PROJECT]
+Target=laberinto.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=laberinto.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[laberinto.c]
+Type=4
+[mru-list]
+1=laberinto.c
+[Opened Files]
+1=OBS.c
+2=laberinto.c
+3=semaforo A.c
+4=prueba.c
+5=..\..\..\iloveBTS\nose.c
+6=..\..\..\iloveBTS\ñose.c
+7=
+[Units]
+Count=1
+1=laberinto (main)

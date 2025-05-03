@@ -1,0 +1,78 @@
+#include <16f877a.h>
+#fuses G, NOWDT
+#use delay(clock=20M)
+
+
+void ADELANTE();
+void IZQUIERDA();
+void DERECHA();
+void STOP();
+
+int main() 
+{
+    do {
+        if (input(PIN_B0) == 1 && input(PIN_B1) == 1 && input(PIN_B2) == 1) {
+            STOP();
+        }  
+        
+        else if (input(PIN_B0) == 1 && input(PIN_B1) == 1 && input(PIN_B2) == 0) {
+            IZQUIERDA();
+        }
+        
+        else if (input(PIN_B0) == 0 && input(PIN_B1) == 1 && input(PIN_B2) == 0) {
+            IZQUIERDA();
+        } 
+        
+        else if (input(PIN_B0) == 1 && input(PIN_B1) == 0 && input(PIN_B2) == 1) {
+            DERECHA();
+        } 
+        
+        else if (input(PIN_B0) == 0 && input(PIN_B1) == 0 && input(PIN_B2) == 1) {
+            DERECHA();
+        } 
+        
+        else if (input(PIN_B0) == 1 && input(PIN_B1) == 0 && input(PIN_B2) == 0) {
+            ADELANTE();
+        } 
+        
+        else {
+            STOP();
+        }
+    } while (1); 
+
+    return 0;
+}
+
+
+void ADELANTE() {
+    output_high(PIN_A0);
+    output_high(PIN_A2);
+    output_low(PIN_A1);
+    output_low(PIN_A3);
+}
+
+
+void DERECHA() {
+    output_low(PIN_A0);
+    output_high(PIN_A2);
+    output_high(PIN_A1);
+    output_low(PIN_A3);
+    delay_ms(700); 
+}
+
+
+void IZQUIERDA() {
+    output_high(PIN_A0);
+    output_low(PIN_A2);
+    output_low(PIN_A1);
+    output_high(PIN_A3);
+    delay_ms(700); 
+}
+
+
+void STOP() {
+    output_low(PIN_A0);
+    output_low(PIN_A2);
+    output_low(PIN_A1);
+    output_low(PIN_A3);
+}

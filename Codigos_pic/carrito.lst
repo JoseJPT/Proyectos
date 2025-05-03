@@ -1,0 +1,225 @@
+CCS PCM C Compiler, Version 5.015, 5967               06-nov.-24 17:09
+
+               Filename:   C:\Users\Joss\Desktop\Meca\Programacion\Codigos pic\carrito.lst
+
+               ROM used:   135 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           6 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... #include <16F877A.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #fuses XT, NOWDT, NOPROTECT, NOLVP 
+.................... #use delay(clock=4M) 
+.................... #use rs232(baud=9600, xmit=PIN_C6, rcv=PIN_C7, bits=8) 
+....................  
+.................... // Pines de control multiplexados 
+.................... #define MOTOR_PIN1 PIN_A0 
+.................... #define MOTOR_PIN2 PIN_A1 
+....................  
+.................... void main() { 
+0004:  MOVF   03,W
+0005:  ANDLW  1F
+0006:  MOVWF  03
+0007:  MOVLW  19
+0008:  BSF    03.5
+0009:  MOVWF  19
+000A:  MOVLW  A6
+000B:  MOVWF  18
+000C:  MOVLW  90
+000D:  BCF    03.5
+000E:  MOVWF  18
+000F:  BSF    03.5
+0010:  BSF    1F.0
+0011:  BSF    1F.1
+0012:  BSF    1F.2
+0013:  BCF    1F.3
+0014:  MOVLW  07
+0015:  MOVWF  1C
+0016:  BCF    03.7
+....................     char data; 
+....................  
+....................     while(TRUE) { 
+....................         if(kbhit()) { 
+0017:  BCF    03.5
+0018:  BTFSS  0C.5
+0019:  GOTO   085
+....................             data = getc(); 
+001A:  BTFSS  0C.5
+001B:  GOTO   01A
+001C:  MOVF   1A,W
+001D:  MOVWF  21
+....................  
+....................             // Control del primer par de motores (A0 y A1) 
+....................             if(data == 'w') { // Adelante 
+001E:  MOVF   21,W
+001F:  SUBLW  77
+0020:  BTFSS  03.2
+0021:  GOTO   02B
+....................                 output_high(MOTOR_PIN1); 
+0022:  BSF    03.5
+0023:  BCF    05.0
+0024:  BCF    03.5
+0025:  BSF    05.0
+....................                 output_low(MOTOR_PIN2); 
+0026:  BSF    03.5
+0027:  BCF    05.1
+0028:  BCF    03.5
+0029:  BCF    05.1
+....................             } 
+002A:  GOTO   085
+....................             else if(data == 's') { // Atrás 
+002B:  MOVF   21,W
+002C:  SUBLW  73
+002D:  BTFSS  03.2
+002E:  GOTO   038
+....................                 output_low(MOTOR_PIN1); 
+002F:  BSF    03.5
+0030:  BCF    05.0
+0031:  BCF    03.5
+0032:  BCF    05.0
+....................                 output_high(MOTOR_PIN2); 
+0033:  BSF    03.5
+0034:  BCF    05.1
+0035:  BCF    03.5
+0036:  BSF    05.1
+....................             } 
+0037:  GOTO   085
+....................             else if(data == 'd') { // Derecha 
+0038:  MOVF   21,W
+0039:  SUBLW  64
+003A:  BTFSS  03.2
+003B:  GOTO   045
+....................                 output_high(MOTOR_PIN1); 
+003C:  BSF    03.5
+003D:  BCF    05.0
+003E:  BCF    03.5
+003F:  BSF    05.0
+....................                 output_high(MOTOR_PIN2); 
+0040:  BSF    03.5
+0041:  BCF    05.1
+0042:  BCF    03.5
+0043:  BSF    05.1
+....................             } 
+0044:  GOTO   085
+....................             else if(data == 'a') { // Izquierda 
+0045:  MOVF   21,W
+0046:  SUBLW  61
+0047:  BTFSS  03.2
+0048:  GOTO   052
+....................                 output_low(MOTOR_PIN1); 
+0049:  BSF    03.5
+004A:  BCF    05.0
+004B:  BCF    03.5
+004C:  BCF    05.0
+....................                 output_low(MOTOR_PIN2); 
+004D:  BSF    03.5
+004E:  BCF    05.1
+004F:  BCF    03.5
+0050:  BCF    05.1
+....................             } 
+0051:  GOTO   085
+....................             else { 
+....................                 // Cambia al segundo par de motores (los mismos pines) 
+....................                 if(data == 'x') { // Adelante 
+0052:  MOVF   21,W
+0053:  SUBLW  78
+0054:  BTFSS  03.2
+0055:  GOTO   05F
+....................                     output_high(MOTOR_PIN1); 
+0056:  BSF    03.5
+0057:  BCF    05.0
+0058:  BCF    03.5
+0059:  BSF    05.0
+....................                     output_low(MOTOR_PIN2); 
+005A:  BSF    03.5
+005B:  BCF    05.1
+005C:  BCF    03.5
+005D:  BCF    05.1
+....................                 } 
+005E:  GOTO   085
+....................                 else if(data == 'z') { // Atrás 
+005F:  MOVF   21,W
+0060:  SUBLW  7A
+0061:  BTFSS  03.2
+0062:  GOTO   06C
+....................                     output_low(MOTOR_PIN1); 
+0063:  BSF    03.5
+0064:  BCF    05.0
+0065:  BCF    03.5
+0066:  BCF    05.0
+....................                     output_high(MOTOR_PIN2); 
+0067:  BSF    03.5
+0068:  BCF    05.1
+0069:  BCF    03.5
+006A:  BSF    05.1
+....................                 } 
+006B:  GOTO   085
+....................                 else if(data == 'c') { // Derecha 
+006C:  MOVF   21,W
+006D:  SUBLW  63
+006E:  BTFSS  03.2
+006F:  GOTO   079
+....................                     output_high(MOTOR_PIN1); 
+0070:  BSF    03.5
+0071:  BCF    05.0
+0072:  BCF    03.5
+0073:  BSF    05.0
+....................                     output_high(MOTOR_PIN2); 
+0074:  BSF    03.5
+0075:  BCF    05.1
+0076:  BCF    03.5
+0077:  BSF    05.1
+....................                 } 
+0078:  GOTO   085
+....................                 else if(data == 'v') { // Izquierda 
+0079:  MOVF   21,W
+007A:  SUBLW  76
+007B:  BTFSS  03.2
+007C:  GOTO   085
+....................                     output_low(MOTOR_PIN1); 
+007D:  BSF    03.5
+007E:  BCF    05.0
+007F:  BCF    03.5
+0080:  BCF    05.0
+....................                     output_low(MOTOR_PIN2); 
+0081:  BSF    03.5
+0082:  BCF    05.1
+0083:  BCF    03.5
+0084:  BCF    05.1
+....................                 } 
+....................             } 
+....................         } 
+0085:  GOTO   018
+....................     } 
+.................... } 
+....................  
+0086:  SLEEP
+....................  
+....................      
+....................      
+....................      
+....................  
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
