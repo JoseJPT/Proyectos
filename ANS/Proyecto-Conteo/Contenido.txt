@@ -1,0 +1,9 @@
+1. La carpeta de nombre de codigo contiene el codigo 
+del conteo como la del menu principal
+
+2.Carpeta con el documento en word y pdf del funcionamiento de la aplicación
+
+3. Carpeta Modulo del conteo de esporas contiene el archivo java del proyecto
+
+4. Carpeta del Menu principal contiene el archivo java del menu principal 
+del proyecto
