@@ -1,0 +1,9 @@
+#include <16F877A.h>
+#fuses xt,nowdt
+#use delay(clock= 4M)
+
+void main() {
+   output_high(pin_a0)
+   
+}
+

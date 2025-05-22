@@ -1,0 +1,67 @@
+#include <16F877A.h>
+#fuses XT, NOWDT
+#USE DELAY(CLOCK=4M)
+
+#define PIN_s1 PIN_B0
+#define PIN_s2 PIN_B1
+
+
+void main() {
+    while (TRUE) {
+       
+        // AND
+        if (s1 && s2) {
+            output_high(PIN_d0);
+        } else {
+            output_low(PIN_d0);
+        }
+
+        // OR
+        if (s1 || s2) {
+            output_high(PIN_d1);
+        } else {
+            output_low(PIN_d1);
+        }
+
+        // NOT (of PIN_s1)
+        if (!s1) {
+            output_high(PIN_d2);
+        } else {
+            output_low(PIN_d2);
+        }
+
+        // NAND
+        if (!(s1 && s2)) {
+            output_high(PIN_d3);
+        } else {
+            output_low(PIN_d3);
+        }
+
+        // NOR
+        if (!(s1 || s2)) {
+            output_high(PIN_d4);
+        } else {
+            output_low(PIN_d4);
+        }
+
+        // XOR
+        if (s1 != s2) {
+            output_high(PIN_d5);
+        } else {
+            output_low(PIN_d5);
+        }
+
+        // XNOR
+        if (s1 == s2) {
+            output_high(PIN_d6);
+        } else {
+            output_low(PIN_d6);
+        }
+    }
+}
+
+
+    
+    
+    
+

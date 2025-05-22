@@ -1,0 +1,69 @@
+#include <16f877a.h>
+#fuses xt,nowdt
+#USE DELAY (CLOCK = 4M)
+
+#define SENSOR_IZQ PIN_A2
+#define SENSOR_FTE PIN_E2
+#define SENSOR_DER PIN_B0
+#define SENSOR_TRAS PIN_D7
+
+#define LED_IZQ PIN_A0
+#define LED_FTE PIN_E1
+#define LED_DER PIN_D6
+#define LED_TRAS PIN_C0
+
+void main()
+{
+    while(TRUE){                                           
+        if(input(SENSOR_FTE)){ 
+            output_high(LED_FTE); 
+            delay_ms(2000);
+            
+            output_low(LED_IZQ);
+            output_low(LED_DER);
+            output_low(LED_TRAS);
+            delay_ms(1000);
+        }
+        else { 
+            output_low(LED_FTE);
+        }
+
+        if(input(SENSOR_IZQ)){ 
+            output_high(LED_IZQ); 
+            delay_ms(2000);
+            output_low(LED_FTE);
+            output_low(LED_DER);
+            output_low(LED_TRAS);
+            delay_ms(1000);
+        }
+        else {
+            output_low(LED_IZQ);
+        }
+
+        if(input(SENSOR_DER)){ 
+            output_low(LED_FTE);
+            output_low(LED_IZQ);
+            output_low(LED_TRAS);
+        }
+        else {
+            output_low(LED_DER);
+        }
+
+        if(input(SENSOR_TRAS)){ 
+            output_high(LED_TRAS); 
+            delay_ms(2000);
+            
+            output_low(LED_FTE);
+            output_low(LED_IZQ);
+            output_low(LED_DER);
+            delay_ms(1000);
+            
+        }
+        else {
+            output_low(LED_TRAS);
+        }
+
+        DELAY_MS(500); 
+    }
+}
+

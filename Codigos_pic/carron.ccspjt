@@ -1,0 +1,25 @@
+[PROJECT]
+Target=carron.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=carron.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[carron.c]
+Type=4
+[mru-list]
+1=carron.c
+[Opened Files]
+1=carron.c
+2=codigo1.c
+3=..\..\..\iloveBTS\nose.c
+4=
+5=sensor.c
+6=..\Desktop\Meca\Programacion\Codigos pic\x.c
+7=..\Desktop\Meca\Programacion\Codigos pic\codigo1.c
+8=
+[Units]
+Count=1
+1=carron (main)

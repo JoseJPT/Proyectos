@@ -1,0 +1,52 @@
+#include <16f877a.h>
+#fuses xt,nowdt
+#USE DELAY (CLOCK = 4M)
+
+#define D1 PIN_B6  // Sensor delantero
+#define D2 PIN_A2  // Sensor derecho
+#define D3 PIN_D0  // Sensor izquierdo
+#define D4 PIN_D2  // Sensor trasero
+
+#define LED1 PIN_B7  // Avanzar
+#define LED2 PIN_A0  // Girar a la derecha
+#define LED3 PIN_D1  // Girar a la izquierda
+#define LED4 PIN_D3  // Retroceder
+
+void main()
+{
+    while (TRUE) {
+        
+        if (input(D1) == 1) {  
+            output_low(LED1);  
+            
+           
+            if (input(D2) == 0) {
+                
+                output_high(LED2); 
+                output_low(LED3);   
+                output_low(LED4); 
+            }
+            if (input(D3) == 0) {
+              
+                output_high(LED3); 
+                output_low(LED2);   
+                output_low(LED4); 
+            }
+            if (input(D4) == 0) {
+                
+                output_high(LED4);
+                output_low(LED2);   
+                output_low(LED3);  
+            }
+        } else {
+            
+            output_high(LED1);  
+            output_low(LED2);   
+            output_low(LED3);  
+            output_low(LED4);   
+        }
+
+        DELAY_MS(1000);  
+   }
+}
+

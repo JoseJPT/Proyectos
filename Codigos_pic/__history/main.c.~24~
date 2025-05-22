@@ -1,0 +1,80 @@
+#include <16f877a.h>
+#fuses xt,nowdt
+#USE DELAY (CLOCK = 4M)
+
+#use rs232(baud=9600, xmit=PIN_C6, rcv=PIN_C7)
+
+void main(){
+char data;
+
+while(TRUE) 
+{
+if(kbhit()) {
+         data = getc();
+//ADELANTE
+         if(data == 'w') {
+            output_high(PIN_A0);
+            output_low(PIN_A1);
+            output_high(Pin_A2);
+            output_low(Pin_A3);
+  }
+ //ATRAS
+         if(data == 's') {
+            output_low(PIN_A0);
+            output_high(PIN_A1);
+            output_low(Pin_A2);
+            output_high(Pin_A3);
+  }
+  //DERECHA
+         if(data == 'd') {
+            output_low(PIN_A0);
+            output_low(PIN_A1);
+            output_high(Pin_A2);
+            output_low(Pin_A3);
+  }
+  //IZQUIERDA
+         if(data == 'a') {
+            output_high(PIN_A0);
+            output_low(PIN_A1);
+            output_low(Pin_A2);
+            output_low(Pin_A3);
+  }
+  //ESTOOPPP
+         if(data == '5') {
+            output_low(PIN_A0);
+            output_low(PIN_A1);
+            output_low(Pin_A2);
+            output_low(Pin_A3);
+  }
+        //ATRAS IZQUIERDA
+         if(data == '6') {
+            output_low(PIN_A0);
+            output_low(PIN_A1);
+            output_low(Pin_A2);
+            output_high(Pin_A3);
+  }
+  //ATRAS DERECHA
+         if(data == '7') {
+            output_low(PIN_A0);
+            output_high(PIN_A1);
+            output_low(Pin_A2);
+            output_low(Pin_A3);
+  }
+        
+         if(data == '9') {
+            output_high(PIN_A0);
+            
+  }
+           if(data == 'O') {
+            output_high(PIN_A5);
+  }
+        
+         if(data == 'P') {
+            output_low(PIN_A5);
+  }
+ 
+}
+}
+}
+
+

@@ -1,0 +1,47 @@
+#include <16f877a.h>
+#fuses hs,nowdt
+#USE DELAY (CLOCK = 20M)
+
+#define A1 PIN_A1
+#define A2 PIN_A2
+#define A3 PIN_A3
+#define A4 PIN_A4
+
+#define B1 PIN_B1
+#define B2 PIN_B2
+#define B3 PIN_B3
+#define B4 PIN_B4
+
+void main() {
+    while (TRUE) { 
+       
+        if(input(A1) == 1 && input(A2) == 0 && input(A3) == 0 && input(A4) == 0) {
+            output_high(B1); 
+        }            else{
+            output_low(B1);
+            }
+        
+        if(input(A1) == 0 && input(A2) == 1 && input(A3) == 0 && input(A4) == 1) {
+            output_high(B2);
+            delay_ms(500);
+            output_low(B2);
+            
+            output_high(B1);  
+            
+        }
+                    else{
+            output_low(B1);
+            }
+        if(input(A1) == 0 && input(A2) == 0 && input(A3) == 1 && input(A4) == 1) {
+            output_high(B3);
+            delay_ms(500);
+            output_low(B3);
+            
+            output_high(B1);
+            
+        }
+                    else{
+            output_low(B1);
+            }
+    }
+}

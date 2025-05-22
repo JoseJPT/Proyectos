@@ -1,0 +1,21 @@
+[PROJECT]
+Target=codigox.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=codigox.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[codigox.c]
+Type=4
+[mru-list]
+1=codigox.c
+[Opened Files]
+1=codigox.c
+2=..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877A.h
+3=codigo1.c
+4=
+[Units]
+Count=1
+1=codigox (main)

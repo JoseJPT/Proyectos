@@ -1,0 +1,51 @@
+#include <16f877a.h>
+#fuses xt,nowdt
+#USE DELAY (CLOCK = 4M)
+
+#define D1 PIN_A2  
+#define D2 PIN_E2  
+#define D3 PIN_B0  
+#define D4 PIN_D7  
+
+#define LED1 PIN_A0  
+#define LED2 PIN_E1  
+#define LED3 PIN_B1  
+#define LED4 PIN_D6 
+
+void main()
+{
+    while (TRUE) {
+        
+        if (input(D1) == 0) {  
+            output_low(LED1);  
+            
+           
+            if (input(D2) == 1) {
+                
+                output_high(LED2); 
+                output_low(LED3);   
+                output_low(LED4); 
+            }
+            if (input(D3) == 1) {
+              
+                output_high(LED3); 
+                output_low(LED2);   
+                output_low(LED4); 
+            }
+            if (input(D4) == 1) {
+                
+                output_high(LED4);
+                output_low(LED2);   
+                output_low(LED3);  
+            }
+        } else {
+            
+            output_high(LED1);  
+            output_low(LED2);   
+            output_low(LED3);  
+            output_low(LED4);   
+        }
+
+        DELAY_MS(1000);  
+   }
+}

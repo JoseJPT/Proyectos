@@ -1,0 +1,32 @@
+#include <16F877A.h>
+#fuses XT, NOWDT
+#use delay(clock=4M)
+
+#define LED PIN_B7  // Define el pin B7 como LED
+
+void main() {
+    int16 adc_value;
+    float temperature;
+
+    setup_adc_ports(AN0);   // Configura el puerto AN0 como entrada analógica
+    setup_adc(ADC_CLOCK_DIV_32); // Configura el reloj del ADC
+
+    set_adc_channel(0); // Selecciona el canal 0 (AN0)
+
+    while(TRUE) {
+        adc_value = read_adc(); // Lee el valor del ADC
+        delay_ms(10); // Pequeño retardo para estabilidad
+
+        // Convertir el valor ADC a temperatura en grados Celsius
+        temperature = (adc_value * 5.0 / 1023.0) * 100.0;
+
+        // Si la temperatura supera los 30 grados Celsius, enciende el LED
+        if(temperature > 30.0) {
+            output_high(LED);
+        }
+        else {
+            output_low(LED);
+        }
+    }
+}
+

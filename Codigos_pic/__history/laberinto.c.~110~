@@ -1,0 +1,61 @@
+#include <16f877a.h>
+#fuses XT, nowdt
+#USE DELAY (CLOCK = 20M)
+
+#define A1 PIN_A1 // Movimiento hacia adelante
+#define A2 PIN_A2 // Giro a la derecha
+#define A3 PIN_A3 // Giro a la izquierda
+#define A4 PIN_A4 // No se permite ir hacia atrás
+
+#define B1 PIN_B1 // Motor delantero derecho
+#define B2 PIN_B2 // Motor delantero izquierdo
+#define B3 PIN_B3 // Motor trasero derecho
+#define B4 PIN_B4 // Motor trasero izquierdo
+
+void main() {
+    while (TRUE) { 
+        // 1. Movimiento hacia adelante
+        if (input(A1) == 1 && input(A2) == 0 && input(A3) == 0 && input(A4) == 0) {
+            output_high(B1); // Motores delanteros activados
+            output_high(B3); 
+            output_low(B2); 
+            output_low(B4);
+            delay_ms(500); // Tiempo de avance
+        }
+
+        // 2. Giro a la derecha
+        if (input(A1) == 1 && input(A2) == 1 && input(A3) == 0 && input(A4) == 0) {
+            output_LOW(B1); // Motores ajustados para girar a la derecha
+            output_HIGH(B2);
+            output_high(B3);
+            output_low(B4);
+            delay_ms(500); // Tiempo de giro
+        }
+        
+        // 3. Giro a la izquierda
+        if (input(A1) == 0 && input(A2) == 0 && input(A3) == 1 && input(A4) == 0) {
+            output_low(B1); // Motores ajustados para girar a la izquierda
+            output_high(B2);
+            output_low(B3);
+            output_high(B4);
+            delay_ms(500); // Tiempo de giro
+        }
+        
+        // 4. Dar la vuelta si no hay camino hacia adelante
+        if (input(A1) == 0 && input(A2) == 0 && input(A3) == 0 && input(A4) == 0) {
+            output_high(B1); // Motores ajustados para giro completo (derecha)
+            output_low(B2);
+            output_high(B3);
+            output_low(B4);
+            delay_ms(1000); // Tiempo para giro completo (180°)
+            
+            // Después del giro, reintenta avanzar
+            output_high(B1); // Motores delanteros activados
+            output_high(B3); 
+            output_low(B2); 
+            output_low(B4);
+            delay_ms(500);
+        }
+    }
+}
+

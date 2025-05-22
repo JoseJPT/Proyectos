@@ -1,0 +1,15 @@
+#include <16F877A.h>
+#fuses NOWDT, HS, NOPROTECT, NOLVP
+#use delay(clock=20000000)
+
+void main() {
+   set_tris_b(0x00);  // Configura el puerto B como salida
+
+   while(TRUE) {
+      output_high(PIN_B0);  // Enciende el LED
+      delay_ms(1000);       // Espera 1 segundo
+      output_low(PIN_B0);   // Apaga el LED
+      delay_ms(1000);       // Espera 1 segundo
+   }
+}
+

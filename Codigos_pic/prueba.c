@@ -1,0 +1,25 @@
+#include <16F877A.h>
+#fuses NOWDT, hs
+#use delay(clock=20M)
+
+void main() {
+    while (TRUE) {
+        // Secuencia 1
+       
+        output_high(PIN_B1);
+        output_high(PIN_B2);
+        output_high(PIN_B3);
+        output_high(PIN_B3);
+        output_high(PIN_B4);
+        delay_ms(2000); 
+        
+        output_low(PIN_B1);
+        output_low(PIN_B2);
+        output_low(PIN_B3);
+        output_low(PIN_B3);
+        
+        delay_ms(2000); 
+        
+
+        }
+}

@@ -1,0 +1,20 @@
+[PROJECT]
+Target=nuevo codigo.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=nuevo codigo.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[nuevo codigo.c]
+Type=4
+[mru-list]
+1=nuevo codigo.c
+[Opened Files]
+1=nuevo codigo.c
+2=
+3=
+[Units]
+Count=1
+1=nuevo codigo (main)

@@ -1,0 +1,23 @@
+[PROJECT]
+Target=p.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=p.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[p.c]
+Type=4
+[mru-list]
+1=p.c
+[Opened Files]
+1=p.c
+2=nose.c
+3=
+4=prueba.c
+5=p.c
+6=
+[Units]
+Count=1
+1=p (main)

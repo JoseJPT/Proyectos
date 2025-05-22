@@ -1,0 +1,63 @@
+#include <16F877A.h>
+#fuses NOWDT, XT
+#use delay(clock=4M)
+
+void main() {
+    while (TRUE) {
+        // Secuencia 1
+        output_high(PIN_A0); //Rojo
+        output_high(PIN_D0); //Rojo
+        output_high(PIN_E1); //Verde
+        delay_ms(500); 
+
+        output_low(PIN_A0);
+        output_low(PIN_D0);
+        output_low(PIN_E1); // Verde
+        delay_ms(500); 
+        
+        output_high(PIN_A0); //Rojo
+        output_high(PIN_D0); //Rojo
+        output_high(PIN_E0); 
+        delay_ms(500); 
+
+        output_low(PIN_A0);
+        output_low(PIN_D0);
+        output_low(PIN_E0); // Amarillo
+        delay_ms(500); 
+        
+        // Secuencia 2
+
+        output_high(PIN_A5); //Rojo
+        output_high(PIN_D0); //Rojo
+        output_high(PIN_A2); //Verde
+        delay_ms(500); 
+
+        output_low(PIN_A5); //Rojo
+        output_low(PIN_D0); //Rojo
+        output_low(PIN_A2); // Verde
+        delay_ms(500); 
+
+        output_high(PIN_A5); //Rojo
+        output_high(PIN_D0); //Rojo
+        output_high(PIN_E0); //Amarillo
+        delay_ms(500); 
+
+        output_low(PIN_A5); //Rojo
+        output_low(PIN_D0); //Rojo
+        output_low(PIN_E0); //Amarillo
+        delay_ms(500); 
+
+        // Secuencia 3
+        output_high(PIN_A5); //Rojo
+        output_high(PIN_D0); //Rojo
+        output_high(PIN_A2); //Verde
+        delay_ms(500); 
+
+        output_low(PIN_A5); //Rojo
+        output_low(PIN_D0); //Rojo
+        output_low(PIN_A2); // Verde
+        delay_ms(500); 
+
+    }
+}
+

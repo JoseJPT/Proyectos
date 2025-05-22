@@ -1,0 +1,14 @@
+ÀÄp
+   ÀÄmain  0/118  Ram=3
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄSTOP  0/17  Ram=0
+      ÃÄIZQUIERDA  0/24  Ram=1
+      ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ÃÄIZQUIERDA  0/24  Ram=1
+      ³  ÀÄ*
+      ÃÄDERECHA  0/24  Ram=1
+      ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ÃÄDERECHA  0/24  Ram=1
+      ³  ÀÄ*
+      ÃÄADELANTE  0/19  Ram=0
+      ÀÄSTOP  0/17  Ram=0
